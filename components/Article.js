@@ -86,14 +86,21 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'David Barr',
+    date: 'Aug 7, 1996',
+    firstParagraph: "David likes to eat cheese noodles",
+    secondParagraph: "DUUUUVAL",
+    thirdParagraph: "He has two siblings"
   }
+
 ];
 
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
   and returns a DOM node looking like the one below:
-
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
@@ -114,3 +121,43 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+const articlesDiv = document.querySelector('.articles')
+
+function articleMaker(article){
+  const myDiv = document.createElement('div')
+  const myHeader = document.createElement('h2')
+  const myP1 = document.createElement('p')
+  const myP2 = document.createElement('p')
+  const myP3 = document.createElement('p')
+  const myP4 = document.createElement('p')
+  const mySpan = document.createElement('span')
+
+  myDiv.classList.add('article')
+  myHeader.textContent = article.title
+  myP1.classList.add('date')
+  myP1.textContent = article.date
+  myP2.textContent = article.firstParagraph
+  myP3.textContent = article.secondParagraph
+  myP4.textContent = article.thirdParagraph
+  mySpan.classList.add('expandButton')
+  mySpan.textContent = '+'
+
+  myDiv.appendChild(myHeader)
+  myDiv.appendChild(myP1)
+  myDiv.appendChild(myP2)
+  myDiv.appendChild(myP3)
+  myDiv.appendChild(myP4)
+  myDiv.appendChild(mySpan)
+
+  mySpan.addEventListener('click', e => {
+    myDiv.classList.toggle('article-open')
+  })
+  
+  return myDiv
+}
+
+//articlesDiv.appendChild(articleMaker(data[0]))
+data.forEach( (article) => {
+  articlesDiv.appendChild(articleMaker(article))
+})
